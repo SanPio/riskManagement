@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>manage</title>
+  </head>
+  <style>
+    #app {
+      font-family: 'Avenir', Helvetica, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-align: center;
+      color: #2c3e50;
+    }
+    body,h1,h2,h3,h4,h5,h6,hr,p,blockquote,dl,dt,dd,ul,ol,li,pre,form,fieldset,legend,button,input,textarea,th,td{margin:0;padding:0}
+    html{color:#000;overflow-y:scroll;overflow:-moz-scrollbars-vertical}
+    body,button,input,select,textarea{font-size:12px;font-family:arial,'Hiragino Sans GB','Microsoft Yahei','微软雅黑','宋体',\5b8b\4f53,Tahoma,Arial,Helvetica,STHeiti}
+    h1,h2,h3,h4,h5,h6{font-size:100%}
+    em{font-style:normal}
+    small{font-size:12px}
+    ul,ol{list-style:none}
+    a{text-decoration:none}
+    a:hover{text-decoration:underline}
+    legend{color:#000}
+    fieldset,img{border:0}
+    button,input,select,textarea{font-size:100%}
+    table{border-collapse:collapse;border-spacing:0}
+    img{-ms-interpolation-mode:bicubic}
+    textarea{resize:vertical}
+    .left{float:left}
+    .right{float:right}
+    .overflow{overflow:hidden}
+    .hide{display:none}
+    .block{display:block}
+    .inline{display:inline}
+    .error{color:#F00;font-size:12px}
+    label,button{cursor:pointer}
+    
+    .clearfix:after{content:'\20';display:block;height:0;clear:both}
+    .clearfix{zoom:1}.clear{clear:both;height:0;line-height:0;font-size:0;visibility:hidden;overflow:hidden}
+    .wordwrap{word-break:break-all;word-wrap:break-word}
+    .flex{display: flex;justify-content: space-between;}
+    pre.wordwrap{white-space:pre-wrap}
+    body{text-align:center}
+    body,form{position:relative}
+    td{text-align:left}
+    img{border:0}
+    textarea{resize:none;margin-top: 5px;text-align: center;}
+    body{
+        background-color: gray;
+    }
+    #app{
+        font-size: 16px;
+    }
+    #box h1,.passinfo h1,.examinetab h1,.operationtab h1{
+        height: 80px;
+        line-height: 80px;
+        font-weight: 900;
+        font-size: 40px;
+        font-family: "微软雅黑";
+        position: fixed;
+        top: 0px;
+        width: 100%;
+        text-align: center;
+        background-color: gray;
+    }
+    #box .header{
+        background: #4fa2fe;
+        top: 80px;
+        position: fixed;
+        width: 100%;
+    }
+    #box .header li{
+        box-sizing: border-box;
+        border-right: 1px solid gray;
+    }
+    #box .title{
+        width: 14.28%;
+        height:50px;
+        font-size: 18px;
+        line-height: 50px;
+        /* font-weight: 600; */
+        box-sizing: border-box;
+    }
+    #box  .content{
+        margin-top: 130px;
+    }
+    #box .content .left{
+        width: 14.28%;
+        height: 50px;
+        line-height: 50px;
+        /* font-weight: bold; */
+        border-right: 1px solid gray;
+        box-sizing: border-box;
+    }
+    #box .title:nth-of-type(1) , #box .content .left:nth-of-type(1){
+        width: 10%;
+    }
+    #box .title:nth-of-type(2) , #box .content .left:nth-of-type(2){
+        width: 14.2%;
+    }
+    #box .title:nth-of-type(3) , #box .content .left:nth-of-type(3){
+        width: 20%;
+    }
+    #box .content .left:nth-of-type(3) input{
+        width: 94%;
+    }
+    #box .title:nth-of-type(5) , #box .content .left:nth-of-type(5){
+        width: 20%;
+    }
+    #box .title:nth-of-type(6) , #box .content .left:nth-of-type(6){
+        width: 10%;
+    }
+    #box .content .left:nth-of-type(4) input{
+        width: 92%;
+    }
+    #box .content .left:nth-of-type(5) textarea{
+        width: 92%;
+    }
+    #box .content .left:nth-of-type(6) input{
+        width: 92%;
+    }
+    #box .title:nth-of-type(7) , #box .content .left:nth-of-type(7){
+        width: 11.4%;
+    }
+
+    #box  .content li{
+        background-color: #fff;
+        height: 50px;
+        border-bottom: 1px solid gray;
+    }
+    
+    #box .btnbox{
+        display: flex;
+        justify-content: space-around;
+    }
+    
+    #box .btnbox button{
+        padding: 0 10%;
+        font-size: 16px;
+        border-radius: 10px;
+        color: #fff;
+        font-weight: bold;
+        outline: none;
+        height: 40px;
+        margin-top: 5px;
+    }
+    #box button:focus{outline:0;}
+    .adopt{
+        background: green;
+    }
+    #box .refuse{
+        background: red;
+    }
+    p{
+        border-right: 1px solid gray;
+    }
+    #box .left input{
+        width: 200px;
+        /* width: 88.4%; */
+        height: 38px;
+        text-align: center;
+        /* font-weight: bold; */
+    }
+    #box .left textarea{
+        width: 200px;
+        /* width: 88.4%; */
+        height: 28px;
+        text-align: center;
+        padding: 10px 0 0 0;
+        /* font-weight: bold; */
+    }
+    #box button{
+        border: none;
+    }
+    #box .manage{ 
+        overflow: hidden;
+        position: fixed;
+        top: 40px;
+        right: 0px;
+    }
+    #box .manage li{
+        float: right;
+        margin-left: 10px;
+    }
+    #box  .manage li button{
+        width: 100px;
+        height: 30px;
+        line-height: 30px;
+        border: none;
+        background-color:#4fa2fe;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: bold;
+        color: #2c3e50;
+    }
+    
+
+
+    /* 已通过账号信息 class 已拒绝账号信息 id */
+    *{
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        text-decoration: none;
+        outline: none;
+        /* font-weight: bold; */
+       
+    }
+    body{
+        background-color: gray;
+        
+    }
+    .passinfo{
+        position: relative;
+        /* overflow: hidden; */
+    }
+    .passinfo .titles{
+        width: 100%;
+        margin: 0 auto;
+        position: fixed;
+        top: 80px;
+    }
+    .passinfo .titles li{
+        width: 100%;
+        height: 50px;
+        background-color: #4fa2fe;
+    }
+    .passinfo .titles li p,.content li p{
+        width: 10%;
+        height: 50px;
+        box-sizing: border-box;
+        text-align: center;
+        line-height: 50px;
+        /* font-weight: bold; */
+    }
+    .passinfo #titles li p,#content li p{
+        width: 10%;
+        height: 50px;
+        box-sizing: border-box;
+        text-align: center;
+        line-height: 50px;
+        /* font-weight: bold; */
+    }
+    .fl{
+        float: left;
+    }
+    .fr{
+        float: right;
+    }
+    .passinfo  .contents{
+        margin-top: 130px;
+        width: 100%;
+    }
+    .passinfo  .contents li{
+        width: 100%;
+        height: 50px;
+        background-color: white;
+        border-bottom: 1px solid gray;
+    }
+    .passinfo  #contents li{
+        width: 100%;
+        height: 50px;
+        background-color: white;
+        border-bottom: 1px solid gray;
+    }
+    .searchresult{
+        overflow: hidden;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+    }
+    .searchresult li{
+        width: 100%;
+        height: 50px;
+        background-color: white;
+        border-bottom: 1px solid gray;
+    }
+    
+
+    .passinfo .contents li p{
+        width: 10%;
+        height: 50px;
+        line-height: 50px;
+        box-sizing: border-box;
+        /* font-weight: bold; */
+    }
+    .passinfo #contents li p{
+        width: 10%;
+        height: 50px;
+        line-height: 50px;
+        box-sizing: border-box;
+        /* font-weight: bold; */
+    }
+
+    .passinfo .contents li p>button{
+        padding: 0 10%;
+        font-size: 16px;
+        border-radius: 4px;
+        /* color: #fff; */
+        outline: none;
+        width: 70px;
+        height: 30px;
+        line-height: 30px;
+        margin-top: 5px;
+        border: none;
+        font-size: 14px;
+        background-color: #4fa2fe;
+        color: white;
+    }
+    .passinfo #contents li p>button{
+        padding: 0 10%;
+        font-size: 16px;
+        border-radius: 4px;
+        /* color: #fff; */
+        outline: none;
+        width: 70px;
+        height: 30px;
+        line-height: 30px;
+        margin-top: 5px;
+        border: none;
+        font-size: 14px;
+        background-color: #4fa2fe;
+        color: white;
+    }
+    .passinfo .titles li p:nth-of-type(1),
+    .passinfo .contents li p:nth-of-type(1){
+        width: 6%;
+    }
+    .passinfo .titles li p:nth-of-type(3),
+    .passinfo .contents li p:nth-of-type(3){
+        width: 16%;
+    }
+    .passinfo .titles li p:nth-of-type(4),
+    .passinfo .contents li p:nth-of-type(4){
+        width: 18%;
+    }
+    .passinfo .titles li p:nth-of-type(7),
+    .passinfo .contents li p:nth-of-type(7){
+        width: 16%;
+    }
+    .passinfo .titles li p:nth-of-type(8),
+    .passinfo .contents li p:nth-of-type(8){
+        width: 8%;
+    }
+    .passinfo .titles li p:nth-of-type(9),
+    .passinfo .contents li p:nth-of-type(9){
+        width: 6%;
+    }
+    .passinfo .titles li p:nth-of-type(10),
+    .passinfo .contents li p:nth-of-type(10){
+        width: 6%;
+    }
+    
+    .passinfo #titles li p:nth-of-type(1),
+    .passinfo #contents li p:nth-of-type(1){
+        width: 6%;
+    }
+    .passinfo #titles li p:nth-of-type(4),
+    .passinfo #contents li p:nth-of-type(4){
+        width: 13.7%;
+    }
+    .passinfo #titles li p:nth-of-type(9),
+    .passinfo #contents li p:nth-of-type(9){
+        width: 10%;
+    }
+    .passinfo #titles li p:nth-of-type(10),
+    .passinfo #contents li p:nth-of-type(10){
+        width: 6%;
+    }
+    .passinfo #titles li p:nth-of-type(11),
+    .passinfo #contents li p:nth-of-type(11){
+        width: 6%;
+    }
+    .passinfo #titles li p:nth-of-type(2),
+    .passinfo #contents li p:nth-of-type(2){
+        width: 8.3%;
+    }
+
+    .passinfo .btn{
+        position: fixed;
+        right: 10px;
+        top: 40px;
+        width: 100px;
+        height: 30px;
+        line-height: 30px;
+        background-color:#4fa2fe;
+        border-radius: 6px;
+        font-size: 14px;
+        margin-bottom: 30px;
+        font-weight: bold;
+        border: none;
+        /* letter-spacing: 6px; */
+        color: #2c3e50;
+    }
+
+    /* 弹框 */
+    .passinfo .pop{
+        width: 280px;
+        height: 120px;
+        margin: 0 auto;
+        background: #ffffff;
+        position: fixed;
+        top: 260px;
+        left: 630px;
+        z-index: 10;
+        border-radius: 10px; 
+    }
+    .aaa .pop button{
+        width: 60px;
+        height: 30px;
+        border: none;
+        color: #999999;
+        margin: 30px 10px 0 10px; 
+        outline: none;
+        border-radius: 4px;
+    }
+    .aaa{
+        width: 100%;
+        height: 800px;
+        background:rgba(0, 0, 0, 0.4);
+        position: fixed;
+        top: 0;
+        z-index: 100;
+    }
+    /* 搜索功能 */
+    #cententsearch{
+        position: fixed;
+        top: -90px;
+        z-index: 12;
+        /* background-color: gray; */
+        overflow: hidden;
+        width: 40%;
+    }
+    #cententsearch>button{
+        font-size: 16px;
+        border-radius: 4px;
+        /* color: #fff; */
+        outline: none;
+        width: 70px;
+        height: 30px;
+        line-height: 30px;
+        border: none;
+        font-size: 14px;
+        background-color: #4fa2fe;
+        color: white;
+    }
+    #cententsearch>input{
+        height: 26px;
+        padding: 0 0 0 10px;
+    }
+    #cententsearch>select{
+        height: 30px;
+        width: 140px;
+        padding: 0 0 0 10px;
+    }
+    #cententsearch ul{
+        height: 50px;
+    }
+    
+    
+
+    /* 操作记录表 */
+    .operationtab .operationtit{
+        width: 100%;
+        margin: 0 auto;
+        position: fixed;
+        top: 80px;
+    }
+    .operationtab .operationcon{
+        margin-top: 130px;
+        width: 100%;
+        height: 500px;
+    }
+    .operationtab .operationtit li{
+        width: 100%;
+        height:50px;
+        /* position: fixed; */
+        /* top: 0; */
+        font-size: 18px;
+        line-height: 50px;
+        /* font-weight: bold; */
+        background-color:#4fa2fe;
+    }
+    .operationtab .operationcon li{
+        overflow: hidden;
+    }
+    .operationtab .operationtit li p{
+        width: 8.33%;
+        height: 50px;
+        box-sizing: border-box;
+    }
+    .operationtab .operationcon li p{
+        width: 8.33%;
+        background-color: #fff;
+        height: 50px;
+        border-bottom: 1px solid gray;
+        box-sizing: border-box;
+        line-height: 50px;
+        text-align: center;
+        word-wrap: break-word;
+        /* padding: 14px 0 0 0; */
+    }
+
+    .operationtab .operationtit li p:nth-of-type(1),
+    .operationtab .operationcon li p:nth-of-type(1){
+        width: 5%;
+    }
+    .operationtab .operationtit li p:nth-of-type(2),
+    .operationtab .operationcon li p:nth-of-type(2){
+        width: 5%;
+    }
+    .operationtab .operationtit li p:nth-of-type(11),
+    .operationtab .operationcon li p:nth-of-type(11){
+        width: 10.3%;
+    }
+    .operationtab .operationtit li p:nth-of-type(12),
+    .operationtab .operationcon li p:nth-of-type(12){
+        width: 13%;
+    }
+    .operationtab .operationtit li p:nth-of-type(8),
+    .operationtab .operationcon li p:nth-of-type(8){
+        width: 9.7%;
+    }
+    .operationtab .operationtit li p:nth-of-type(9),
+    .operationtab .operationcon li p:nth-of-type(9){
+        width: 7%;
+    }
+    .operationtab .operationtit li p:nth-of-type(4),
+    .operationtab .operationcon li p:nth-of-type(4){
+        width: 7%;
+    }
+    .operationtab .operationtit li p:nth-of-type(5),
+    .operationtab .operationcon li p:nth-of-type(5){
+        width: 9.6%;
+    }
+
+    .fixed{
+        position: fixed;
+        top: 0;
+        width: 100%;
+    }
+    .operationtab .btn{
+        position: fixed;
+        right: 10px;
+        top: 40px;
+        width: 100px;
+        height: 30px;
+        line-height: 30px;
+        background-color:#4fa2fe;
+        border-radius: 6px;
+        font-size: 14px;
+        margin-bottom: 30px;
+        font-weight: bold;
+        border: none;
+        /* letter-spacing: 6px; */
+        color: #2c3e50;
+    }
+
+    /* 分页 */
+    .page{
+        width: 100%;
+        height: 100px;
+        background-color: pink;
+        position: fixed;
+        bottom: 0px;
+    }
+    </style>
+  <body>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+  </body>
+</html>
